@@ -1,6 +1,17 @@
 {
     "editor.codeActionsOnSave": {
-        "source.fixAll.markdoenlint": true
+        "source.fixAll.markdoenlint": true,
+        "source.fixAll": true
+    },
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[javascriptreact]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[scss]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
     "workbench.colorCustomizations": {
         "activityBar.activeBackground": "#93e6fc",
