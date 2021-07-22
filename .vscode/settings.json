@@ -1,6 +1,6 @@
 {
     "editor.codeActionsOnSave": {
-        "source.fixAll.markdoenlint": true,
+        "source.fixAll.markdoenlint": true
     },
     "workbench.colorCustomizations": {
         "activityBar.activeBackground": "#93e6fc",
