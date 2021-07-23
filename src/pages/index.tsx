@@ -2,7 +2,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import styles from './home.module.scss';
 import avatarSVG from '../../public/images/avatar.svg';
-
+import { SubscribeButton } from '../components/SubscribeButton';
 export default function Home() {
     return (
         <>
@@ -20,6 +20,7 @@ export default function Home() {
                         Get access to all the articles on <br />
                         <span>$ 9 month</span>
                     </p>
+                    <SubscribeButton />
                 </section>
                 <Image src={avatarSVG} alt="Girl coding" />
             </main>
