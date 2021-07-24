@@ -8,3 +8,10 @@ this project is a simple blog, development using `nextjs,typescript.`
 
     yarn add typescript @types/react @types/node --dev
     ```
+
+## Stripe Plataforma de pagamento
+
+[SITE DA STRIPE](https://dashboard.stripe.com/settings)
+
+[] - fazer uma chamada a APi de pagamento
+[] - Utilizar uma estratégia com server side renderings
