@@ -15,7 +15,7 @@ export default class MyDocument extends Document {
                     />
                     <link
                         rel="shortcut icon"
-                        href="favicon.ico"
+                        href="favicon.png"
                         type="image/png"
                     />
                     <title>ig.news</title>

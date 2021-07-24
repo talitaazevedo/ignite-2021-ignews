@@ -1,4 +1,5 @@
 [Bb]uild*
 [Dd]ist*
 [Bb]in*
+*.md
 package-lock.json
