@@ -30,5 +30,5 @@
         "titleBar.inactiveForeground": "#15202b99"
     },
     "peacock.color": "#61dafb",
-    "cSpell.words": ["Ignews", "markdownlint", "nextjs"]
+    "cSpell.words": ["Ignews", "markdownlint", "nextauth", "nextjs"]
 }

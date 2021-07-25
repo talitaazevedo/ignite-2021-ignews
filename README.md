@@ -1,4 +1,15 @@
-# Ignews Project a blog project
+- [Ignews Project blog](#ignews-project-blog)
+  - [Stripe Plataforma de pagamento](#stripe-plataforma-de-pagamento)
+  - [Get Static props - SSG (Static Site Generation)](#get-static-props---ssg-static-site-generation)
+    - [revalidate](#revalidate)
+  - [Get Server Side Props SSR - (Server side Renderings)](#get-server-side-props-ssr---server-side-renderings)
+  - [Formas de fazer chamadas no next](#formas-de-fazer-chamadas-no-next)
+  - [Backend No Frontend](#backend-no-frontend)
+    - [Api Routes no NextJS](#api-routes-no-nextjs)
+      - [Estratégias de Autenticação do NEXTJS](#estratégias-de-autenticação-do-nextjs)
+    - [Autenticação com next-auth](#autenticação-com-next-auth)
+
+# Ignews Project blog
 
 this project is a simple blog, development using `nextjs,typescript.`
 
@@ -91,3 +102,28 @@ Em alguns momentos, é possível fazer um backend dentro do nextJs.
 - Utilizando serviços externos.
   - Cognito.
   - Auth0.
+
+### Autenticação com next-auth
+
+ Este projeto utiliza `next-auth`, para fazer autenticação com o github.
+ O Processo foi muito simples.
+
+  [next-auth](https://next-auth.js.org/getting-started/example)
+
+  > Seguir a documentação foi bem simples.
+
+- Primeiro Criar uma estrutura de pasta dentro de pages.
+
+```bash
+src/pages
+├── api
+│   └── auth
+│       └── [...nextauth].ts
+├── _app.tsx
+├── _document.tsx
+├── home.module.scss
+└── index.tsx
+
+```
+
+- `└── [...nextauth].ts` os colchetes significam que está pagina recebe parâmetros dinâmicos.
