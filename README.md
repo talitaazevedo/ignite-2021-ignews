@@ -8,6 +8,7 @@
     - [Api Routes no NextJS](#api-routes-no-nextjs)
       - [Estratégias de Autenticação do NEXTJS](#estratégias-de-autenticação-do-nextjs)
     - [Autenticação com next-auth](#autenticação-com-next-auth)
+  - [Escolhendo banco de dados (FaunaDB)](#escolhendo-banco-de-dados-faunadb)
 
 # Ignews Project blog
 
@@ -127,3 +128,23 @@ src/pages
 ```
 
 - `└── [...nextauth].ts` os colchetes significam que está pagina recebe parâmetros dinâmicos.
+
+- criar um `Oauth` no github, para o projeto de autenticação.
+- Criar duas variáveis ambiente com os códigos do Github.
+
+  ```env
+  GITHUB_CLIENT_ID=d*********************
+
+  GITHUB_CLIENT_SECRET=0*********************
+
+  ```
+
+## Escolhendo banco de dados (FaunaDB)
+<!-- Pode Ser também o DinamoDB -->
+> **FaunaDB** feito especialmente para aplicações serverless.
+
+- [x] Acessar o `faunadb`, criar uma conta e uma database.
+
+- [x] Criar um service para instanciar.
+
+- [x] Adicionar o secret em uma variável ambiente.
