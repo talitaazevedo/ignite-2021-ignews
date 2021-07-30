@@ -6,9 +6,12 @@
   - [Formas de fazer chamadas no next](#formas-de-fazer-chamadas-no-next)
   - [Backend No Frontend](#backend-no-frontend)
     - [Api Routes no NextJS](#api-routes-no-nextjs)
-      - [Estratégias de Autenticação do NEXTJS](#estratégias-de-autenticação-do-nextjs)
+    - [Estratégias de Autenticação do NEXTJS](#estratégias-de-autenticação-do-nextjs)
     - [Autenticação com next-auth](#autenticação-com-next-auth)
-  - [Escolhendo banco de dados (FaunaDB)](#escolhendo-banco-de-dados-faunadb)
+    - [Escolhendo banco de dados (FaunaDB)](#escolhendo-banco-de-dados-faunadb)
+    - [Pagamentos no stripe](#pagamentos-no-stripe)
+  - [Ouvindo webhooks](#ouvindo-webhooks)
+    - [Webhooks no stripe](#webhooks-no-stripe)
 
 # Ignews Project blog
 
@@ -91,7 +94,7 @@ Em alguns momentos, é possível fazer um backend dentro do nextJs.
 - [ ] Pagamentos.
 - [ ] Para aplicações com escopo muito fechado utilizar o next como api pode ser uma solução.
 
-#### Estratégias de Autenticação do NEXTJS
+### Estratégias de Autenticação do NEXTJS
 
 - JWT - (Storage) .
   - Maneira convencional.
@@ -139,12 +142,119 @@ src/pages
 
   ```
 
-## Escolhendo banco de dados (FaunaDB)
+### Escolhendo banco de dados (FaunaDB)
 <!-- Pode Ser também o DinamoDB -->
 > **FaunaDB** feito especialmente para aplicações serverless.
 
 - [x] Acessar o `faunadb`, criar uma conta e uma database.
+  - [x] Configurando faunadb
 
 - [x] Criar um service para instanciar.
-
+  - [x] Salvando usuário no banco
+  
 - [x] Adicionar o secret em uma variável ambiente.
+  - [x] Chave Privada JWT
+
+- [x] Verificando usuário duplicado
+
+### Pagamentos no stripe
+
+Stripe é um serviço terceiro de pagamentos.
+[acesso o stripe](https://dashboard.stripe.com/)
+
+- [x] Acessar o Stripe e criar uma conta.
+  - [x] Criar um produto.
+  - [x] Redirecionar para o stripe.
+  - [x] Evitar duplicação no stripe.
+  
+- Criar um arquivo de subscribe paraw gerarmos o checkout, criar este arquivo dentro da pastinha `API`, conforme mostrado abaixo
+
+  ```bash
+        src/pages/api
+
+      ├── auth
+      │   └── [...nextauth].ts
+      └── subscribe.ts
+
+  ```
+
+Este arquivo será responsável por gerar a rota de checkout no site da stripe.
+
+  ```typescript
+      export default async (req: NextApiRequest, res: NextApiResponse) => {
+          if (req.method === 'POST') {
+              const session = await getSession({ req });
+              const stripeCustomer = await stripe.customers.create({
+                  email: session.user.email,
+              });
+              const user = await fauna.query<User>(
+                  q.Get(
+                      q.Match(
+                          q.Index('user_by_email'),
+                          q.Casefold(session.user.email),
+                      ),
+                  ),
+              );
+              let customerId = user.data.stripe_customer_id;
+
+              if (!customerId) {
+                  await fauna.query(
+                      q.Update(q.Ref(q.Collection('users'), user.ref.id), {
+                          data: {
+                              stripe_customer_id: stripeCustomer.id,
+                          },
+                      }),
+                  );
+
+                  customerId = stripeCustomer.id;
+              }
+
+              const stripeCheckoutSession = await stripe.checkout.sessions.create({
+                  customer: stripeCustomer.id,
+                  payment_method_types: ['card'],
+                  billing_address_collection: 'required',
+                  line_items: [
+                      {
+                          price: 'price_1JGrKzFZnKPPGbbtmvoAQ9cb',
+                          quantity: 1,
+                      },
+                  ],
+                  mode: 'subscription',
+                  allow_promotion_codes: true,
+                  success_url: process.env.STRIPE_SUCCESS_URL,
+                  cancel_url: process.env.STRIPE_FAIL_URL,
+              });
+              return res.status(200).json({ sessionId: stripeCheckoutSession.id });
+          } else {
+              res.setHeader('Allow', 'POST');
+              res.status(405).end('Method not allowed');
+          }
+      };
+  ```
+
+## Ouvindo webhooks
+
+### Webhooks no stripe
+
+> Caso a aplicação esteja em produção é necessário criar um `endpoint` pelo stripe.
+> Como não está criaremos pela linha de comando instalando a `cli do stripe`.
+
+- Acesse o github  do stripe cli e siga as instruções de instalação [clique aqui](https://github.com/stripe/stripe-cli)
+
+- Após a  instalação   crie um arquivo, chamado `webhooks.ts` no diretório abaixo.
+
+```bash
+
+src/pages/api
+├── auth
+│   └── [...nextauth].ts
+├── subscribe.ts
+└── webhooks.ts
+```
+
+- Após  criar o arquivo de configuração execute o comando abaixo para  que o stripe comece a ouvir  a página.
+  
+```bash
+stripe listen --forward-to localhost:3000/api/webhooks
+
+```
