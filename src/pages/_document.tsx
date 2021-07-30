@@ -1,5 +1,6 @@
 // é carregado uma unica vez na minha aplicação
 import Document, { Html, Head, Main, NextScript } from 'next/document';
+
 export default class MyDocument extends Document {
     render() {
         return (
@@ -18,7 +19,6 @@ export default class MyDocument extends Document {
                         href="favicon.png"
                         type="image/png"
                     />
-                    <title>ig.news</title>
                 </Head>
                 <body>
                     <Main />

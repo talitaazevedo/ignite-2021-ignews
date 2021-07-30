@@ -30,5 +30,12 @@
         "titleBar.inactiveForeground": "#15202b99"
     },
     "peacock.color": "#61dafb",
-    "cSpell.words": ["Ignews", "faunadb", "markdownlint", "nextauth", "nextjs"]
+    "cSpell.words": [
+        "Casefold",
+        "Ignews",
+        "faunadb",
+        "markdownlint",
+        "nextauth",
+        "nextjs"
+    ]
 }
