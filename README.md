@@ -14,6 +14,7 @@
     - [Pagamentos no stripe](#pagamentos-no-stripe)
   - [Ouvindo webhooks](#ouvindo-webhooks)
     - [Webhooks no stripe](#webhooks-no-stripe)
+    - [Ouvindo eventos no stripe](#ouvindo-eventos-no-stripe)
 
 this project is a simple blog, development using `nextjs,typescript.`
 
@@ -167,7 +168,7 @@ Stripe é um serviço terceiro de pagamentos.
   - [x] Redirecionar para o stripe.
   - [x] Evitar duplicação no stripe.
   
-- Criar um arquivo de subscribe paraw gerarmos o checkout, criar este arquivo dentro da pastinha `API`, conforme mostrado abaixo
+- Criar um arquivo de subscribe para gerarmos o checkout, criar este arquivo dentro da pastinha `API`, conforme mostrado abaixo
 
   ```bash
         src/pages/api
@@ -256,5 +257,20 @@ src/pages/api
   
 ```bash
 stripe listen --forward-to localhost:3000/api/webhooks
+
+```
+
+### Ouvindo eventos no stripe
+
+Para ouvir eventos no stripe é necessário fazer um `parser`  de dados, para isso foi usada uma função pronta da internet para conversão .
+
+```typescript
+async function buffer(readable: Readable) {
+    const chunks = [];
+    for await (const chunk of readable) {
+        chunks.push(typeof chunk === 'string' ? Buffer.from(chunk) : chunk);
+    }
+    return Buffer.concat(chunks);
+}
 
 ```
