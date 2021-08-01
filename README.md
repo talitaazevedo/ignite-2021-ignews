@@ -15,6 +15,8 @@
   - [Ouvindo webhooks](#ouvindo-webhooks)
     - [Webhooks no stripe](#webhooks-no-stripe)
     - [Ouvindo eventos no stripe](#ouvindo-eventos-no-stripe)
+  - [Posts com Prismic](#posts-com-prismic)
+    - [Formatação de dados com react](#formatação-de-dados-com-react)
 
 this project is a simple blog, development using `nextjs,typescript.`
 
@@ -274,3 +276,9 @@ async function buffer(readable: Readable) {
 }
 
 ```
+
+## Posts com Prismic
+
+### Formatação de dados com react
+
+Sempre que puder faça a formatação dos dados conversão de preço, data etc. logo após consumir os dados daAPI externa
