@@ -1,5 +1,8 @@
+import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import styles from './styles.module.scss';
+import Prismic from '@prismicio/client';
+import { getPrismicClient } from '../../services/prismic';
 
 export default function Posts() {
     return (
@@ -70,3 +73,21 @@ export default function Posts() {
         </>
     );
 }
+
+export const getStaticProps: GetStaticProps = async () => {
+    const prismic = getPrismicClient();
+    const response = await prismic.query(
+        [Prismic.Predicates.at('document.type', 'post')],
+        {
+            fetch: ['post.title', 'publication.content'],
+            pageSize: 100,
+        },
+    );
+    // console.log(response);
+    // Quando houver  mais de uma identação em um objeto usar o console.log abaixo para testar
+    console.log(JSON.stringify(response, null, 2));
+
+    return {
+        props: {},
+    };
+};

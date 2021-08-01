@@ -38,6 +38,7 @@
         "faunadb",
         "markdownlint",
         "nextauth",
-        "nextjs"
+        "nextjs",
+        "prismicio"
     ]
 }
