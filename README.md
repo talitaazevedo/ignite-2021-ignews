@@ -17,6 +17,7 @@
     - [Ouvindo eventos no stripe](#ouvindo-eventos-no-stripe)
   - [Posts com Prismic](#posts-com-prismic)
     - [Formatação de dados com react](#formatação-de-dados-com-react)
+    - [Componente Active Link](#componente-active-link)
 
 this project is a simple blog, development using `nextjs,typescript.`
 
@@ -282,3 +283,42 @@ async function buffer(readable: Readable) {
 ### Formatação de dados com react
 
 Sempre que puder faça a formatação dos dados conversão de preço, data etc. logo após consumir os dados daAPI externa
+
+### Componente Active Link
+
+Este componente é muito interessante.
+Paraw criar utilizamos o componente `Link` do `next`  foi bem simples explicação abaixo.
+
+**Propriedadades do componente `ActiveLink`**
+
+- **children**: elemento html do código `<a>`.
+- **ActiveClassName**: classe css do código.
+- **...rest**:  restante das proprieadades do componente link.
+
+- [x] `cloneElement` do react, esta função clona, um elemento html.
+- [x] `asPath`  do  `useRouter`  é responsável por verificar determinados atributos.
+- [x] Então o que  foi feito, como a propriedade `children` não podia receber mais uma propriedade `activeClassName` ,  foi feita uma verificação simples,  onde caso não seja encontrada a classe do elemento ele substitui por uma string vazia.
+
+```typescript
+
+// Importação  dos elementos 
+import { ReactElement, cloneElement } from 'react';
+
+interface ActiveLinkProps extends LinkProps {
+    children: ReactElement;
+    activeClassName: string;
+}
+
+export function ActiveLink({
+    children,
+    activeClassName,
+    ...rest
+}: ActiveLinkProps) {
+    const { asPath } = useRouter();
+    const className = asPath === rest.href ? activeClassName : '';
+    // Clone elemente é muito legal e avançado.
+    return <Link {...rest}>{cloneElement(children, { className })}</Link>;
+}
+
+
+```

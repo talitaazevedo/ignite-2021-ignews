@@ -28,14 +28,14 @@
             &:hover {
                 color: var(--white);
             }
-            &:active {
+            &.active {
                 color: var(--white);
                 font-weight: bold;
             }
 
             // After depois de fechar a tag
             // before insere um elemento antes do fechamento da tag
-            &:active::after {
+            &.active::after {
                 content: '';
                 height: 3px;
                 border-radius: 3px 3px 0 0;
