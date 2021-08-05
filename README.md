@@ -293,7 +293,7 @@ Paraw criar utilizamos o componente `Link` do `next`  foi bem simples explicaç�
 
 - **children**: elemento html do código `<a>`.
 - **ActiveClassName**: classe css do código.
-- **...rest**:  restante das proprieadades do componente link.
+- **...rest**:  restante das propriedades do componente link.
 
 - [x] `cloneElement` do react, esta função clona, um elemento html.
 - [x] `asPath`  do  `useRouter`  é responsável por verificar determinados atributos.
