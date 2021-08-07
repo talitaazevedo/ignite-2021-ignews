@@ -41,28 +41,12 @@ export const getServerSideProps: GetServerSideProps = async ({
     const session = await getSession({ req });
     const { slug } = params;
 
-    //  if(!session) {}
-
-    // Verificar assinatura ativa
-
-    const prismic = getPrismicClient(req);
-    const response = await prismic.getByUID('post', String(slug), {});
-
-    const post = {
-        slug,
-        title: RichText.asText(response.data.title),
-        content: RichText.asHtml(response.data.content),
-        updatedAt: new Date(response.last_publication_date).toLocaleDateString(
-            'pt-BR',
-            {
-                day: '2-digit',
-                month: 'long',
-                year: 'numeric',
+    if (!session.activeSubscription) {
+        return {
+            redirect: {
+                destination: '/',
+                permanent: false,
             },
-        ),
-    };
-
-    return {
-        props: { post },
-    };
+        };
+    }
 };
