@@ -1,4 +1,4 @@
-import { GetStaticProps } from 'next';
+import { GetStaticPaths, GetStaticProps } from 'next';
 import { RichText } from 'prismic-dom';
 import Head from 'next/head';
 import styles from '. ./post.module.scss';
@@ -49,10 +49,20 @@ export default function PostPreview({ post }: PostPreviewProps) {
         </>
     );
 }
-export const getStaticPaths = () => {
+// essa função só existe quando utilizamos  slugs
+export const getStaticPaths: GetStaticPaths = async () => {
+    // Quais posts eu quero gerar durante a Build
+    // Para Criação informar os slugs dos posts
+
     return {
-        paths: [],
-        fallback: 'blocking',
+        paths: [
+            // Adicione o slug que será gerado.
+            //   {params:{slug: 'server-less-application-com-node-js'}},
+        ],
+        fallback: 'blocking', //true, false, blocking.
+        //  true =>  caso haja acesso quando ainda não foi gerado o fallback => problema  layout shift => não é muito bom para SEO
+        // false => se o post não foi gerado  ainda  retorna 404 => quando carrega usa server side rendering e só mostra quando tudo estiver pronto
+        //blocking =>
     };
 };
 
@@ -75,5 +85,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     };
     return {
         props: { post },
+        redirect: 60 * 30, // 30 minutes
     };
 };

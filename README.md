@@ -18,6 +18,7 @@
   - [Posts com Prismic](#posts-com-prismic)
     - [Formatação de dados com react](#formatação-de-dados-com-react)
     - [Componente Active Link](#componente-active-link)
+    - [Gerando Builds GetStatic Paths](#gerando-builds-getstatic-paths)
 
 this project is a simple blog, development using `nextjs,typescript.`
 
@@ -262,6 +263,7 @@ src/pages/api
 stripe listen --forward-to localhost:3000/api/webhooks
 
 ```
+
 [text](https://link)
 
 ### Ouvindo eventos no stripe
@@ -323,3 +325,14 @@ export function ActiveLink({
 
 
 ```
+
+### Gerando Builds GetStatic Paths
+
+Estrátegias importantes para gerar páginas estáticas trabalhando com o `nextjs`.
+
+1. Gerar Páginas estáticas durante a Build.
+   1. Usar essa opção apenas quando o site não for muito grande, senão a **build** fica enorme
+2. Gerar a página estática no primeiro acesso.
+   1. Quando houver o primeiro acesso naquela página o servidor do next vai gerar página e disponibilizar para os outros usuários.
+3. Gerar meio a meio, gerar o produto que for mais acessado durante a build e o restante no primeiro acesso.
+   1. ess Opção é muito viável quando um e-commerce  é muito grande, gera uma  build com  as páginas mais acessadas , e consequentemente gera durante o acesso do cliente as próximas
