@@ -16,7 +16,7 @@ export async function saveSubscription(
         ),
     );
     const subscription = await stripe.subscriptions.retrieve(subscriptionId);
-    console.log('subscription', subscription);
+
     const subscriptionData = {
         id: subscription.id,
         userId: userRef,
@@ -24,7 +24,7 @@ export async function saveSubscription(
         price_id: subscription.items.data[0].price.id,
     };
     //     q.Create(q.Collection('users'), { data: { email } }),
-
+    console.log('Action', createAction);
     if (createAction) {
         try {
             await fauna.query(
@@ -32,6 +32,7 @@ export async function saveSubscription(
                     data: subscriptionData,
                 }),
             );
+            console.log('Subscription Criada');
         } catch (err) {
             console.log(err);
         }
@@ -47,5 +48,6 @@ export async function saveSubscription(
                 { data: subscriptionData },
             ),
         ); //Final Query
+        console.log('entrou no else', subscriptionData);
     }
 }

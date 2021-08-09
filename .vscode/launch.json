@@ -3,6 +3,7 @@
         {
             "name": "Launch Microsoft Edge and open the Edge DevTools",
             "request": "launch",
+
             "type": "vscode-edge-devtools.debug",
             "webRoot": "${workspaceFolder}",
             "url": "http://localhost:3000" // Provide your project's url to finish configuring

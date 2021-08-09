@@ -155,7 +155,7 @@ src/pages
 
 - [x] Criar um service para instanciar.
   - [x] Salvando usuário no banco
-  
+
 - [x] Adicionar o secret em uma variável ambiente.
   - [x] Chave Privada JWT
 
@@ -170,7 +170,7 @@ Stripe é um serviço terceiro de pagamentos.
   - [x] Criar um produto.
   - [x] Redirecionar para o stripe.
   - [x] Evitar duplicação no stripe.
-  
+
 - Criar um arquivo de subscribe para gerarmos o checkout, criar este arquivo dentro da pastinha `API`, conforme mostrado abaixo
 
   ```bash
@@ -257,11 +257,12 @@ src/pages/api
 ```
 
 - Após  criar o arquivo de configuração execute o comando abaixo para  que o stripe comece a ouvir  a página.
-  
+
 ```bash
 stripe listen --forward-to localhost:3000/api/webhooks
 
 ```
+[text](https://link)
 
 ### Ouvindo eventos no stripe
 
@@ -301,7 +302,7 @@ Paraw criar utilizamos o componente `Link` do `next`  foi bem simples explicaç�
 
 ```typescript
 
-// Importação  dos elementos 
+// Importação  dos elementos
 import { ReactElement, cloneElement } from 'react';
 
 interface ActiveLinkProps extends LinkProps {

@@ -49,7 +49,7 @@ export const getStaticProps: GetStaticProps = async () => {
         },
     );
     // console.log(response);
-    // Quando houver  mais de uma identação em um objeto usar o console.log abaixo para testar
+    // Quando houver  mais de uma edentação em um objeto usar o console.log abaixo para testar
     console.log(JSON.stringify(response, null, 2));
 
     const posts = response.results.map(post => {
