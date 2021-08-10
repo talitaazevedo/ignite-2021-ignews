@@ -12,7 +12,7 @@ export async function saveSubscription(
     const userRef = await fauna.query(
         q.Select(
             'ref',
-            q.Get(q.Match(q.Index('user_by_stripe_customer_id', customerId))),
+            q.Get(q.Match(q.Index('user_by_stripe_customer_id'), customerId)),
         ),
     );
     const subscription = await stripe.subscriptions.retrieve(subscriptionId);
@@ -26,16 +26,11 @@ export async function saveSubscription(
     //     q.Create(q.Collection('users'), { data: { email } }),
     console.log('Action', createAction);
     if (createAction) {
-        try {
-            await fauna.query(
-                q.Create(q.Collection('subscriptions'), {
-                    data: subscriptionData,
-                }),
-            );
-            console.log('Subscription Criada');
-        } catch (err) {
-            console.log(err);
-        }
+        await fauna.query(
+            q.Create(q.Collection('subscriptions'), {
+                data: subscriptionData,
+            }),
+        );
     } else {
         await fauna.query(
             q.Replace(

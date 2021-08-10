@@ -19,8 +19,6 @@ export default NextAuth({
     callbacks: {
         async session(session) {
             try {
-                const { email } = session.user;
-
                 const userActiveSubscription = await fauna.query(
                     q.Get(
                         q.Intersection([
@@ -31,7 +29,7 @@ export default NextAuth({
                                     q.Get(
                                         q.Match(
                                             q.Index('user_by_email'),
-                                            q.Casefold(email),
+                                            q.Casefold(session.user.email),
                                         ),
                                     ),
                                 ),
@@ -47,7 +45,9 @@ export default NextAuth({
                     ...session,
                     activeSubscription: userActiveSubscription,
                 };
-            } catch {
+            } catch (err) {
+                // return console.log(err);
+                console.log('Erro do Fauna', err);
                 return {
                     ...session,
                     activeSubscription: null,
